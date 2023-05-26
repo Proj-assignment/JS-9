@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: darkorchid;
+        margin-left: 20%;
+      }
+      .outer-square {
+        width: 800px;
+        height: 950px;
+        background-color: darkmagenta;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .inner-square {
+        width: 500px;
+        height: 750px;
+        background-color: white;
+        padding: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group input[type="password"],
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .form-group .error-message {
+        color: red;
+      }
+      .form-group .success-message {
+        color: green;
+      }
+      .form-group .error input,
+      .form-group .error select,
+      .form-group .error textarea {
+        border-color: red;
+      }
+      .form-group .success input,
+      .form-group .success select,
+      .form-group .success textarea {
+        border-color: green;
+      }
+      .form-group .error-message,
+      .form-group .success-message {
+        display: none;
+      }
+      .form-group.error .error-message,
+      .form-group.success .success-message {
+        display: block;
+      }
+      .form-group.error input:focus,
+      .form-group.error select:focus,
+      .form-group.error textarea:focus {
+        outline-color: red;
+      }
+      .form-group.success input:focus,
+      .form-group.success select:focus,
+      .form-group.success textarea:focus {
+        outline-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer-square">
+      <div class="inner-square">
+        <form id="myForm">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" required />
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender:</label>
+            <input type="radio" id="male" name="gender" value="male" required />
+            Male
+            <input type="radio" id="female" name="gender" value="female" />
+            Female
+          </div>
+          <div class="form-group">
+            <label for="language">Language:</label>
+            <select id="language" name="language" required>
+              <option value="">Select a language</option>
+              <option value="english">English</option>
+              <option value="spanish">Spanish</option>
+              <option value="french">French</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="zipcode">Zip Code:</label>
+            <input type="text" id="zipcode" name="zipcode" required />
+          </div>
+          <div class="form-group">
+            <label for="about">About:</label>
+            <textarea id="about" name="about" required></textarea>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      const form = document.getElementById("myForm");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (validateForm()) {
+          alert("Form submitted successfully!");
+        }
+      });
+      function validateForm() {
+        const name = document.getElementById("name");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const phone = document.getElementById("phone");
+        const language = document.getElementById("language");
+        const zipcode = document.getElementById("zipcode");
+        const about = document.getElementById("about");
+        let isValid = true;
+        if (name.value === "") {
+          setErrorMessage(name, "Name is required.");
+          isValid = false;
+        } else {
+          setSuccessMessage(name);
+        }
+        if (email.value === "") {
+          setErrorMessage(email, "Email is required.");
+          isValid = false;
+        } else {
+          setSuccessMessage(email);
+        }
+        return isValid;
+      }
+      function setErrorMessage(element, message) {
+        element.classList.add("error");
+        element.classList.remove("success");
+        const errorElement = element.parentNode.querySelector(".error-message");
+        const successElement =
+          element.parentNode.querySelector(".success-message");
+        errorElement.textContent = message;
+        successElement.textContent = "";
+      }
+      function setSuccessMessage(element) {
+        element.classList.add("success");
+        element.classList.remove("error");
+        const errorElement = element.parentNode.querySelector(".error-message");
+        const successElement =
+          element.parentNode.querySelector(".success-message");
+        errorElement.textContent = "";
+        successElement.textContent = "Field is valid.";
+      }
+    </script>
+  </body>
+</html>
